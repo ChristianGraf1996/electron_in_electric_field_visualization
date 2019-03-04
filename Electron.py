@@ -25,13 +25,21 @@ class Electron:
         return ((v-v0)/a)
     def calculateLength(self,v0,a,t):
         return ((0.5*a*math.pow(t,2))+(v0*t))
-    def calculateMax(self,a,v0):
-        highest = -999999.000;
-        curr = 0.000;
+    def calculateMax(self):
+        highest_x = -999999.000
+        curr_x = 0.000
+        highest_y = -999999.000
+        curr_y = 0.000
         for t in np.arange (0,100,0.01):
-            curr = self.calculateLength(v0,a,t*math.pow(10,-9))
-            if curr > highest:
-                highest = curr
+            curr_x = self.calculateLength(self.v0x,self.ax,t*math.pow(10,-9))
+            curr_y = self.calculateLength(self.v0y,self.ay,t*math.pow(10,-9))
+            if curr_x > highest_x:
+                highest_x = curr_x
             else:
-                return (highest,t)
-
+                print('found max x')
+                return (highest_x,highest_y,t*math.pow(10,-9))            
+            if curr_y > highest_y:
+                highest_y = curr_y
+            else:
+                print('found max y')
+                return (highest_x,highest_y,t*math.pow(10,-9))

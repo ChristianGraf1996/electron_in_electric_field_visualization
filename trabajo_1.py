@@ -1,4 +1,5 @@
-from Electron import *
+from Electron import Electron
+import numpy as np
 def setup():
     global e
     e = Electron()
