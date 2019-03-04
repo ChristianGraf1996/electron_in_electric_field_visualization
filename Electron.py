@@ -2,8 +2,8 @@ import math
 import numpy as np
 class Electron:
     def __init__(self,v0,alpha):
-        #ellipseMode(CENTER)
-        #fill(100)
+        self.x_array = []
+        self.y_array = []
         self.angle = alpha
         self.v = v0
         self.v0 = v0
@@ -14,8 +14,7 @@ class Electron:
         self.v0x, self.v0y = self.calculatev0_x_y(v0,alpha)
         self.Fx, self.Fy = (self.e*self.Ex, self.e*self.Ey)
         self.ax, self.ay = (self.Fx/self.m, self.Fy/self.m)
-    #def drawElectron(self):
-        #ellipse(self.position_x,self.position_y,10,10)
+        (self.maxx,self.maxy,self.time) = self.calculateMax() 
     def calculatev0_x_y(self,v0,alpha):
         return ( v0*math.cos(math.radians(alpha)),
                  v0*math.sin(math.radians(alpha)))
@@ -30,16 +29,23 @@ class Electron:
         curr_x = 0.000
         highest_y = -999999.000
         curr_y = 0.000
+        time = -1
+        found = False
         for t in np.arange (0,100,0.01):
             curr_x = self.calculateLength(self.v0x,self.ax,t*math.pow(10,-9))
+            self.x_array.append(curr_x)
             curr_y = self.calculateLength(self.v0y,self.ay,t*math.pow(10,-9))
-            if curr_x > highest_x:
+            self.y_array.append(curr_y)
+            if curr_x > highest_x and found == False:
                 highest_x = curr_x
-            else:
+            elif found == False:
                 print('found max x')
-                return (highest_x,highest_y,t*math.pow(10,-9))            
+                found = True
+                time = t*math.pow(10,-9)
             if curr_y > highest_y:
                 highest_y = curr_y
-            else:
+            elif found == False:
+                found = True
+                time = t*math.pow(10,-9)
                 print('found max y')
-                return (highest_x,highest_y,t*math.pow(10,-9))
+        return (highest_x,highest_y,time)
