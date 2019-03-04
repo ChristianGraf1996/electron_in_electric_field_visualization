@@ -1,3 +1,4 @@
+from Electron import *
 def setup():
     global e
     e = Electron()
