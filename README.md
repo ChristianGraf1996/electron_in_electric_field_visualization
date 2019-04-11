@@ -1,2 +1,5 @@
-<h1>Entregable 1 de Fisica</h1>
-<h2>Christian Graf bn0395</h2>
+# Entregable 1 de fisica
+
+### Christian Graf
+
+### Ismael Arroyo
